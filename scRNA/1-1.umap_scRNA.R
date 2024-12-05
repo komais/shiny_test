@@ -6,17 +6,9 @@ library(plotly)
 library(RColorBrewer) # 或其他你选择的调色板包
 library(viridis)
 
-# 获取所有传递给 R 的参数
-args <- commandArgs(trailingOnly = TRUE)
-
-# 检查是否有参数，并假设第一个参数是脚本路径
-if (!is.na(args) && length(args) > 0) {
-  script_path <- args[1]
-  script_dir <- dirname(script_path)
-  print(paste("脚本所在的目录是:", script_dir))
-} else {
-  print("没有找到脚本路径")
-}
+args <- commandArgs(trailingOnly = FALSE)
+script_path <- dirname(sub("--file=", "", args[grep("--file=", args)]))
+print(paste("脚本路径:", script_path))
 
 
 datadir <- glue("{script_dir}/data")
