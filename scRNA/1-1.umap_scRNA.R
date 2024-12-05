@@ -11,7 +11,7 @@ script_path <- dirname(sub("--file=", "", args[grep("--file=", args)]))
 print(paste("脚本路径:", script_path))
 
 
-datadir <- glue("{script_dir}/data")
+datadir <- glue("{script_path}/data")
 datalist <- c("pbmc.rds", "pbmc3k.rds", "pbmc_singlet.rds")
 
 # Define UI for application that draws a histogram
