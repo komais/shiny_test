@@ -10,7 +10,7 @@ args <- commandArgs(trailingOnly = FALSE)
 script_path <- dirname(sub("--file=", "", args[grep("--file=", args)]))
 print(paste("脚本路径:", script_path))
 
-
+script_path="E:\\4.bin\\2.R\\4.shiny\\scRNA"
 datadir <- glue("{script_path}/data")
 datalist <- c("pbmc.rds", "pbmc3k.rds", "pbmc_singlet.rds")
 
