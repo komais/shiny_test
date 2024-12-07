@@ -63,7 +63,8 @@ server <- function(input, output, session) {
 
 # 运行应用
 # Run the application 
-app <- shinyApp(ui = ui, server = server )
+shinyApp(ui = ui, server = server )
+#app <- shinyApp(ui = ui, server = server )
 
 
-runApp(app , port=4949)
+#runApp(app , port=4949)
