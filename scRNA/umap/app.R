@@ -83,9 +83,19 @@ server <- function(input, output , session) {
         idents_length <- length(unique(unlist(pbmc[[input$idents]])))
         output$distPlot <- renderPlotly({
         if (input$palette == "自定义") {
-            my_palette <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999")
+            tmp_color <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999")
+            if (idents_length <= 9) {
+                my_palette <- tmp_color[1:idents_length]
+            } else {
+                my_palette <- tmp_color[1:idents_length %% 9 + 1]
+            }
         } else if (input$palette == "viridis") {
-            my_palette <- viridis(n = idents_length)
+            tmp_color <- viridis(n = 10)
+            if (idents_length <= 10) {
+                my_palette <- tmp_color[1:idents_length]
+            } else {
+                my_palette <- tmp_color[1:idents_length %% 10 + 1]
+            }
         } else if (input$palette == "npg") {
             if (idents_length <= 10) {
                 my_palette <-  ggsci::pal_npg()(idents_length)
@@ -94,7 +104,11 @@ server <- function(input, output , session) {
             }
 
         } else {
-            my_palette <- brewer.pal(n = idents_length, name = input$palette)
+            if (idents_length <= 10) {
+                my_palette <- brewer.pal(n = idents_length, name = input$palette)
+            } else {
+                my_palette <- brewer.pal(n = 10, name = input$palette)[1:idents_length %% 10 + 1]
+            }
         }
         # draw the histogram with the specified number of bins
             p <- DimPlot(pbmc, reduction = "umap", group.by = input$idents , cols = my_palette)
