@@ -1,5 +1,9 @@
 library(shiny)
 
+
+
+
+
 # 定义UI
 ui <- fluidPage(
   titlePanel("100以内加减法练习"),
@@ -33,8 +37,8 @@ server <- function(input, output, session) {
   observeEvent(input$generate, {
     # 生成10个随机的加减法问题
     problems <- lapply(1:10, function(i) {
-      a <- sample(1:100, 1)
-      b <- sample(1:100, 1)
+      a <- sample(1:50, 1)
+      b <- sample(1:50, 1)
       op <- sample(c("+", "-"), 1)
       list(a = a, b = b, op = op, answer = ifelse(op == "+", a + b, a - b))
     })

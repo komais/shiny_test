@@ -31,26 +31,32 @@ ui <- fluidPage(
 
 # 定义服务器逻辑
 server <- function(input, output) {
-
   output$distPlot <- renderGirafe({
-
     # 根据用户输入过滤数据
     filtered_data <- data
 
     # 创建 ggplot 图表
-    gg_point <- ggplot(data = filtered_data,
-                       aes(x = !!sym(input$variable), y = mpg,
-                           tooltip = carname, data_id = carname)) +
+    gg_point <- ggplot(
+      data = filtered_data,
+      aes(
+        x = !!sym(input$variable), y = mpg,
+        tooltip = carname, data_id = carname
+      )
+    ) +
       geom_point_interactive(aes(size = !!sym(input$variable)), color = "blue", alpha = 0.6) +
-      labs(title = paste("MPG vs.", input$variable),
-           x = input$variable, y = "MPG") +
+      labs(
+        title = paste("MPG vs.", input$variable),
+        x = input$variable, y = "MPG"
+      ) +
       theme_minimal() +
       theme(plot.title = element_text(hjust = 0.5)) # 标题居中
 
 
     # 将 ggplot 图表转换为 ggiraph 图表
-    girafe(ggobj = gg_point,
-           options = list(opts_hover(css = "fill:red;")))
+    girafe(
+      ggobj = gg_point,
+      options = list(opts_hover(css = "fill:red;"))
+    )
   })
 }
 
